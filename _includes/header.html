@@ -1,13 +1,18 @@
 <header class="site-header-minimal">
   <div class="header-container-minimal">
-    <a href="{{ "/index" | relative_url }}" class="site-logo-link">
-      <img src="{{ "/assets/img/site/Logo-Fernando.png" | relative_url }}" alt="Fernando" class="site-logo" />
+    <a href="{{ '/index' | relative_url }}" class="site-logo-link" aria-label="Fernando, página inicial">
+      <span class="site-logo-mark" aria-hidden="true">F</span>
+      <span class="site-logo-text" aria-hidden="true">Fernando<span class="site-logo-dot">.</span></span>
     </a>
 
-    <nav class="site-nav-minimal">
+    <nav class="site-nav-minimal" aria-label="Principal">
       <ul>
-        <li><a href="{{ "/index" | relative_url }}">Blog</a></li>
-        <li><a href="{{ "/portfolio" | relative_url }}">Portfólio</a></li>
+        <li>
+          <a href="{{ '/index' | relative_url }}"{% if page.home or page.post %} aria-current="page"{% endif %}>JOURNAL</a>
+        </li>
+        <li>
+          <a href="{{ '/portfolio' | relative_url }}"{% if page.portfolio %} aria-current="page"{% endif %}>PORTFOLIO</a>
+        </li>
       </ul>
     </nav>
   </div>

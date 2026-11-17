@@ -1,6 +1,9 @@
 .site-header-minimal {
+  --hd-accent: #2563EB;
+  --hd-accent-hover: #1D4ED8;
+
   background: var(--bg-secondary);
-  padding: 15px 0;
+  padding: 14px 0;
   border-bottom: 1px solid var(--border-color);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   position: sticky;
@@ -8,7 +11,7 @@
   z-index: 100;
 
   @media (max-width: 768px) {
-    padding: 12px 0;
+    padding: 10px 0;
   }
 }
 
@@ -27,27 +30,68 @@
   }
 }
 
+// ---------- logo em CSS ----------
 .site-logo-link {
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  gap: 10px;
   text-decoration: none;
-  transition: transform 0.2s ease;
+  color: var(--text-primary);
 
   &:hover {
-    transform: scale(1.02);
+    color: var(--text-primary);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--hd-accent);
+    outline-offset: 4px;
+    border-radius: 10px;
   }
 }
 
-.site-logo {
-  height: 55px;
-  width: auto;
-  object-fit: contain;
+.site-logo-mark {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--hd-accent);
+  color: #fff;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1;
+  transform: rotate(-4deg);
+  box-shadow: 3px 3px 0 rgba(37, 99, 235, 0.28);
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 
-  @media (max-width: 768px) {
-    height: 42px;
+  @media (max-width: 480px) {
+    width: 34px;
+    height: 34px;
+    font-size: 1.2rem;
   }
 }
 
+.site-logo-text {
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+
+  @media (max-width: 480px) {
+    font-size: 1.05rem;
+  }
+}
+
+.site-logo-dot {
+  color: var(--hd-accent);
+}
+
+.site-logo-link:hover .site-logo-mark {
+  transform: rotate(0deg) scale(1.06);
+  background: var(--hd-accent-hover);
+  box-shadow: 2px 2px 0 rgba(37, 99, 235, 0.28);
+}
+
+// ---------- navegação ----------
 .site-nav-minimal {
   ul {
     list-style: none;
@@ -56,42 +100,48 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
-    gap: 28px;
+    gap: 8px;
 
-    @media (max-width: 768px) {
-      gap: 18px;
-      justify-content: flex-end;
-    }
     @media (max-width: 480px) {
-      gap: 14px;
-      justify-content: center;
+      gap: 2px;
     }
   }
 
   li a {
+    position: relative;
     color: var(--text-primary);
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 500;
-    transition: all 0.2s ease;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 6px 10px;
-    border-radius: 6px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    transition: color 0.2s ease, background 0.2s ease;
 
     &:hover {
-      color: var(--accent);
+      color: var(--hd-accent);
       background: var(--bg-tertiary);
     }
 
-    .fab {
-      font-size: 1.1em;
+    &[aria-current="page"] {
+      color: #fff;
+      background: var(--hd-accent);
+
+      &:hover {
+        background: var(--hd-accent-hover);
+        color: #fff;
+      }
+    }
+
+    &:focus-visible {
+      outline: 3px solid var(--hd-accent);
+      outline-offset: 2px;
     }
 
     @media (max-width: 480px) {
       font-size: 0.9rem;
-      padding: 5px 8px;
+      padding: 7px 11px;
     }
   }
 }

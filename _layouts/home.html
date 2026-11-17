@@ -3,17 +3,87 @@ layout: default
 home: true
 ---
 
+{%- assign total = site.posts.size -%}
+{%- assign current_month = "" -%}
+
 <div class="home-container">
-  <h3 class="posts-section-title" aria-label="Recent Posts">Publicações Recentes</h3>
-  
-  <div class="posts-list">
-    {%- for post in site.posts limit: site.number_of_posts -%}
-    <article class="post-item">
-      <span class="post-item-date">{{ post.date | date: "%b %d, %Y" }}</span>
-      <h4 class="post-item-title">
-        <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-      </h4>
-    </article>
-    {%- endfor -%}
-  </div>
+  <section class="journal-card" aria-labelledby="home-title">
+    <header class="journal-card__top">
+      <span class="journal-card__brand">TECHTRICKS</span>
+      <span class="journal-card__pill">CREATIVE JOURNAL</span>
+    </header>
+
+    <h2 id="home-title" class="journal-card__title">Ideas, code &amp; experiments.</h2>
+
+    <div class="posts-list">
+      {%- for post in site.posts limit: site.number_of_posts -%}
+        {%- assign n = total | minus: forloop.index0 -%}
+        {%- assign entry = n | prepend: "00" | slice: -3, 3 -%}
+        {%- assign words = post.content | number_of_words -%}
+        {%- assign calc_read = words | divided_by: 200 | plus: 1 -%}
+        {%- assign read = post.read_time | default: calc_read -%}
+        {%- assign month_key = post.date | date: "%Y-%m" -%}
+
+        {%- if forloop.first -%}
+      {%- comment -%} Última entrada: card azul em destaque {%- endcomment -%}
+      <article class="post-item post-item--featured">
+        <div class="post-item-top">
+          <p class="post-item-entry">ENTRY {{ entry }}</p>
+          {%- if post.status -%}
+          <span class="post-item-status post-item-status--{{ post.status | downcase }}">{{ post.status | upcase }}</span>
+          {%- endif -%}
+        </div>
+
+        <h3 class="post-item-title">
+          <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+        </h3>
+
+        {%- if post.description -%}
+        <p class="post-item-desc">{{ post.description | escape }}</p>
+        {%- endif -%}
+
+        <p class="post-item-meta">
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%d %b %Y" | upcase }}</time>
+          <span aria-hidden="true">·</span>
+          <span>{{ post.topic | default: "Journal" | upcase }}</span>
+          <span aria-hidden="true">·</span>
+          <span>{{ read }} MIN</span>
+        </p>
+      </article>
+
+        {%- else -%}
+          {%- if month_key != current_month -%}
+            {%- assign current_month = month_key -%}
+      <p class="posts-month">{{ post.date | date: "%B %Y" | upcase }}</p>
+          {%- endif -%}
+
+      {%- comment -%} Demais entradas: linhas leves, agrupadas por mês {%- endcomment -%}
+      <article class="post-item post-item--row">
+        <p class="post-item-entry">ENTRY {{ entry }}</p>
+
+        <div class="post-item-main">
+          <h3 class="post-item-title">
+            <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+          </h3>
+          {%- if post.description -%}
+          <p class="post-item-desc">{{ post.description | escape }}</p>
+          {%- endif -%}
+          <p class="post-item-meta">
+            <span>{{ post.topic | default: "Journal" | upcase }}</span>
+            <span aria-hidden="true">·</span>
+            <span>{{ read }} MIN</span>
+          </p>
+        </div>
+
+        <div class="post-item-side">
+          {%- if post.status -%}
+          <span class="post-item-status post-item-status--{{ post.status | downcase }}">{{ post.status | upcase }}</span>
+          {%- endif -%}
+          <time class="post-item-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%d %b" | upcase }}</time>
+        </div>
+      </article>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </section>
 </div>

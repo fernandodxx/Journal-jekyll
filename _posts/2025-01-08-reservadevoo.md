@@ -3,7 +3,10 @@ layout: post
 title: "Sistema de Reservas de Voos com Ruby on Rails ✈️"
 date: 2024-01-08
 description: "Este é um post incrível sobre programação."
+topic: "Ruby / Rails"
+status: done
 ---
+
 ![Light mode only]({{ '/assets/img/posts/plane.png' | relative_url }}){:: .light }
 
 ## Introdução 

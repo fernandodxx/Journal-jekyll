@@ -1,0 +1,20 @@
+{%- comment -%} Anterior (mais antiga) e próxima (mais nova). Uso: {% include post-nav.html older=older newer=newer entry=entry_num %} {%- endcomment -%}
+{%- if include.older or include.newer -%}
+  {%- assign prev_n = include.entry | minus: 1 | prepend: "00" | slice: -3, 3 -%}
+  {%- assign next_n = include.entry | plus: 1 | prepend: "00" | slice: -3, 3 -%}
+<nav class="post-nav" aria-label="More entries">
+  {%- if include.older -%}
+  <a class="post-nav__link post-nav__link--prev" href="{{ include.older.url | relative_url }}" rel="prev">
+    <span class="post-nav__label">← PREVIOUS · ENTRY {{ prev_n }}</span>
+    <span class="post-nav__title">{{ include.older.title | escape }}</span>
+  </a>
+  {%- endif -%}
+
+  {%- if include.newer -%}
+  <a class="post-nav__link post-nav__link--next" href="{{ include.newer.url | relative_url }}" rel="next">
+    <span class="post-nav__label">NEXT · ENTRY {{ next_n }} →</span>
+    <span class="post-nav__title">{{ include.newer.title | escape }}</span>
+  </a>
+  {%- endif -%}
+</nav>
+{%- endif -%}

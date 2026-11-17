@@ -1,0 +1,105 @@
+---
+layout: default
+title: Archive
+description: Every entry of the TechTricks journal, by year, category and number.
+permalink: /archive/
+archive: true
+---
+{%- assign total = site.posts.size -%}
+
+{%- comment -%} Categorias = campo "topic" dos posts (sem topic vira "Journal") {%- endcomment -%}
+{%- assign cats = "" -%}
+{%- for p in site.posts -%}
+  {%- assign c = p.topic | default: "Journal" -%}
+  {%- assign cats = cats | append: c | append: "||" -%}
+{%- endfor -%}
+{%- assign all_cats = cats | split: "||" -%}
+{%- assign cat_list = all_cats | uniq | sort -%}
+
+{%- assign groups = site.posts | group_by_exp: "p", "p.date | date: '%Y'" -%}
+{%- assign offset = 0 -%}
+
+<div class="home-container">
+  <section class="journal-card archive" aria-labelledby="archive-title" data-archive>
+    <header class="journal-card__top">
+      <span class="journal-card__brand">TECHTRICKS</span>
+      <span class="journal-card__pill">THE ARCHIVE</span>
+    </header>
+
+    <h1 id="archive-title" class="journal-card__title">Every entry, in order.</h1>
+
+    <div class="archive-filters">
+      <div class="archive-filter">
+        <span class="archive-filter__label">CATEGORY</span>
+        <button type="button" class="archive-chip" data-filter="cat" data-value="all" aria-pressed="true">ALL <span>{{ total }}</span></button>
+        {%- for cat in cat_list -%}
+          {%- assign cnt = 0 -%}
+          {%- for c in all_cats -%}
+            {%- if c == cat -%}{%- assign cnt = cnt | plus: 1 -%}{%- endif -%}
+          {%- endfor -%}
+        <button type="button" class="archive-chip" data-filter="cat" data-value="{{ cat | slugify }}" aria-pressed="false">{{ cat | upcase }} <span>{{ cnt }}</span></button>
+        {%- endfor -%}
+      </div>
+
+      <div class="archive-filter">
+        <span class="archive-filter__label">YEAR</span>
+        <button type="button" class="archive-chip" data-filter="year" data-value="all" aria-pressed="true">ALL</button>
+        {%- for g in groups -%}
+        <button type="button" class="archive-chip" data-filter="year" data-value="{{ g.name }}" aria-pressed="false">{{ g.name }} <span>{{ g.size }}</span></button>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <p class="archive-tag" data-tag-box hidden>
+      TAG <strong data-tag-name></strong>
+      <button type="button" class="archive-tag__clear" data-tag-clear aria-label="Clear tag filter">✕</button>
+    </p>
+
+    <p class="archive-count" data-count aria-live="polite">{{ total }} {% if total == 1 %}ENTRY{% else %}ENTRIES{% endif %}</p>
+
+    <div class="posts-list">
+      {%- for g in groups -%}
+      <section class="archive-year" data-year-section>
+        <h2 class="posts-month">{{ g.name }}</h2>
+
+        {%- for post in g.items -%}
+          {%- assign n = total | minus: offset | minus: forloop.index0 -%}
+          {%- assign entry = n | prepend: "00" | slice: -3, 3 -%}
+          {%- assign words = post.content | number_of_words -%}
+          {%- assign calc_read = words | divided_by: 200 | plus: 1 -%}
+          {%- assign read = post.read_time | default: calc_read -%}
+          {%- assign topic = post.topic | default: "Journal" -%}
+          {%- capture tag_slugs -%}{%- for t in post.tags -%}{{ t | slugify }}{%- unless forloop.last %} {% endunless -%}{%- endfor -%}{%- endcapture -%}
+
+        <article class="post-item post-item--row" data-row data-cat="{{ topic | slugify }}" data-year="{{ g.name }}" data-tags="{{ tag_slugs }}">
+          <p class="post-item-entry">ENTRY {{ entry }}</p>
+
+          <div class="post-item-main">
+            <h3 class="post-item-title">
+              <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+            </h3>
+            <p class="post-item-meta">
+              <span>{{ topic | upcase }}</span>
+              <span aria-hidden="true">·</span>
+              <span>{{ read }} MIN</span>
+            </p>
+          </div>
+
+          <div class="post-item-side">
+            {%- if post.status -%}
+            <span class="post-item-status post-item-status--{{ post.status | downcase }}">{{ post.status | upcase }}</span>
+            {%- endif -%}
+            <time class="post-item-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%d %b" | upcase }}</time>
+          </div>
+        </article>
+        {%- endfor -%}
+      </section>
+        {%- assign offset = offset | plus: g.items.size -%}
+      {%- endfor -%}
+    </div>
+
+    <p class="archive-empty" data-empty hidden>Nothing filed here yet. Try another filter.</p>
+  </section>
+</div>
+
+<script src="{{ '/assets/js/archive.js' | relative_url }}" defer></script>

@@ -85,5 +85,6 @@ home: true
         {%- endif -%}
       {%- endfor -%}
     </div>
+     <a class="posts-all" href="{{ '/archive/' | relative_url }}">VIEW ARCHIVE · {{ total }} {% if total == 1 %}ENTRY{% else %}ENTRIES{% endif %} ↗</a>
   </section>
 </div>

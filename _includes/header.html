@@ -11,6 +11,9 @@
           <a href="{{ '/index' | relative_url }}"{% if page.home or page.post %} aria-current="page"{% endif %}>JOURNAL</a>
         </li>
         <li>
+          <a href="{{ '/archive/' | relative_url }}"{% if page.archive %} aria-current="page"{% endif %}>ARCHIVE</a>
+        </li>
+        <li>
           <a href="{{ '/portfolio' | relative_url }}"{% if page.portfolio %} aria-current="page"{% endif %}>PORTFOLIO</a>
         </li>
       </ul>

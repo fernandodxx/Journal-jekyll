@@ -334,3 +334,130 @@
     }
   }
 }
+
+// ---------- link "ver archive" na Home ----------
+.posts-all {
+  display: inline-block;
+  margin-top: 24px;
+  font-family: var(--jc-mono, ui-monospace, monospace);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--jc-pill-text);
+  text-decoration: underline;
+  text-decoration-color: var(--jc-accent);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 7px;
+  transition: text-decoration-thickness 0.2s ease;
+
+  &:hover { text-decoration-thickness: 6px; color: var(--jc-pill-text); }
+}
+
+// ---------- página Archive ----------
+.archive {
+  [hidden] { display: none !important; }
+
+  .archive-filters {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+
+  .archive-filter {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .archive-filter__label {
+    flex: none;
+    width: 6rem;
+    font-family: var(--jc-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    opacity: 0.7;
+
+    @media (max-width: 600px) { width: 100%; }
+  }
+
+  .archive-chip {
+    font-family: var(--jc-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    line-height: 1;
+    padding: 9px 13px;
+    border-radius: 999px;
+    border: 1px solid var(--jc-line);
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+    span { opacity: 0.7; margin-left: 6px; }
+
+    &:hover {
+      background: var(--jc-pill-bg);
+      border-color: var(--jc-pill-text);
+    }
+
+    &[aria-pressed="true"] {
+      background: var(--jc-accent);
+      border-color: var(--jc-accent);
+      color: #fff;
+    }
+
+    &:focus-visible {
+       outline: 3px solid var(--jc-pill-text);
+      outline-offset: 2px;
+    }
+  }
+
+  .archive-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 14px 0 0;
+    padding: 6px 10px 6px 12px;
+    border: 1px dashed var(--jc-pill-text);
+    border-radius: 999px;
+    background: var(--jc-pill-bg);
+    color: var(--jc-pill-text);
+    font-family: var(--jc-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+  }
+
+  .archive-tag__clear {
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font-size: 0.85rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 2px 4px;
+
+    &:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+  }
+
+  .archive-count {
+    margin: 18px 0 0;
+    font-family: var(--jc-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    opacity: 0.75;
+  }
+
+  .archive-empty {
+    margin: 28px 0 0;
+    padding: 28px;
+    text-align: center;
+    border: 1.5px dashed var(--jc-line);
+    border-radius: 14px;
+    font-family: var(--jc-mono);
+    font-size: 0.85rem;
+    opacity: 0.8;
+  }
+}

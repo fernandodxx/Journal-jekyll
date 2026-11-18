@@ -461,3 +461,30 @@
     opacity: 0.8;
   }
 }
+
+// ---------- links do fim da lista: Archive + RSS ----------
+.posts-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 28px;
+  margin-top: 24px;
+
+  .posts-all { margin-top: 0; }
+}
+
+.posts-all--rss {
+  text-decoration: none;
+  padding: 8px 14px;
+  border: 1px solid var(--jc-pill-text);
+  border-radius: 999px;
+  background: var(--jc-pill-bg);
+  transition: background 0.2s ease, color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--jc-accent);
+    border-color: var(--jc-accent);
+    color: #fff;
+  }
+}

@@ -17,7 +17,10 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Fernando santos
+
+author: Fernando Santos
+title: TECHTRICKS
+description: Ideas, code & experiments.
 email: fernandosillvasantoss@gmail.com
 github_username: fernandodxx
 linkedin_username: "fernando-santoss"

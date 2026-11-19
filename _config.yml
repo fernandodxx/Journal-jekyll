@@ -28,10 +28,6 @@ baseurl: "/Journal-jekyll"
 url: "https://fernandodxx.github.io"
 number_of_posts: 5
 
-#disqus comments
-disqus:
-  shortname: shortname
-
 # Build settings
 theme: minima
 plugins:

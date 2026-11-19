@@ -7,7 +7,7 @@ topic: "Ruby / Rails"
 status: done
 ---
 
-![Light mode only]({{ '/assets/img/posts/plane.png' | relative_url }}){:: .light }
+![Light mode only]({{ 'https://fernandodxx.github.io/Journal-jekyll/assets/img/posts/plane.png' | absolute_url }}){:: .light }
 
 ## Introdução 
 Recentemente, desenvolvi um sistema de reservas de voos utilizando Ruby on Rails, onde os usuários podem pesquisar voos, selecionar o voo desejado e inserir suas informações pessoais para concluir a reserva. Este post tem como objetivo compartilhar os detalhes do desenvolvimento dessa aplicação.

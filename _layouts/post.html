@@ -69,11 +69,9 @@ post: true
 
 {% include post-nav.html older=older newer=newer entry=entry_num %}
 
-<div class="post-comments">
-  {%- if site.disqus.shortname -%}
-    {%- include disqus_comments.html -%}
-  {%- endif -%}
-</div>
+<section class="post-comments" aria-label="Comments">
+  {% include comments.html %}
+</section>
 
 <footer class="post-footer">
   {% if page.categories.size > 0 %}
